@@ -17,6 +17,6 @@ script "uninstall_tomcat" do
     then
       sudo dpkg -P $tomcatv
       sudo rm -r /usr/share/$tomcatv
-    if
+    fi
   EOH
 end
