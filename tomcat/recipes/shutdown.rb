@@ -15,8 +15,8 @@ script "uninstall_tomcat" do
     tomcatv=`ps -eLf|grep tomcat | cut -d ' ' -f 1 | head -1`
     if [[ $tomcatv == tomcat* ]];
     then
-      sudo apt-get purge $tomcatv
-      sudo apt-get autoremove
+      sudo apt-get --force-yes purge $tomcatv
+      sudo apt-get --force-yes autoremove
       sudo rm -r /usr/share/$tomcatv
     fi
   EOH
