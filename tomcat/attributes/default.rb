@@ -11,7 +11,7 @@
 # or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
-default['tomcat']['base_version'] = 7
+default['tomcat']['base_version'] = 6
 default['tomcat']['port'] = 8080
 default['tomcat']['secure_port'] = 8443
 default['tomcat']['ajp_port'] = 8009
@@ -23,7 +23,7 @@ case node[:platform]
 when 'centos', 'redhat', 'fedora', 'amazon'
   default['tomcat']['java_opts'] = ''
 when 'debian', 'ubuntu'
-  default['tomcat']['java_opts'] = '-Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC'
+  default['tomcat']['java_opts'] = '-Djava.awt.headless=true -Xmx256m'
 end
 default['tomcat']['catalina_base_dir'] = "/etc/tomcat#{node['tomcat']['base_version']}"
 default['tomcat']['webapps_base_dir'] = "/var/lib/tomcat#{node['tomcat']['base_version']}/webapps"
@@ -44,4 +44,4 @@ when 'debian', 'ubuntu'
   default['tomcat']['group'] = "tomcat#{node['tomcat']['base_version']}"
   default['tomcat']['system_env_dir'] = '/etc/default'
 end
-default['datasources'] = {}
+default['datasources'] = {"ROOT": "jdbc/mydb"}
