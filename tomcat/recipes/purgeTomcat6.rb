@@ -20,11 +20,6 @@ script "uninstall_tomcat" do
   interpreter "bash"
   user "root"
   code <<-EOH
-    echo #{tomcat_version}
-    echo #{tomcat_version}
-    echo #{tomcat_version}
-    echo #{tomcat_version}
-    echo #{tomcat_version}
     sudo rm -rf /usr/share/#{tomcat_version}
     if [ -d "/var/lib/#{tomcat_version}" ]
     then
