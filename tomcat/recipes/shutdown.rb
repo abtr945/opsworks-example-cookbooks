@@ -1,23 +1,30 @@
-#
-# Cookbookname: tomcat
-# Recipe:: shutdown.rb
-#
-# Copyright 2013, YOUR_COMPANY_NAME
-#
-# All rights reserved - Do Not Redistribute
-#
+tomcat_pkgs = value_for_platform(
+  ['debian', 'ubuntu'] => {
+    'default' => ["tomcat#{node['tomcat']['base_version']}", 'libtcnative-1', 'libmysql-java']
+  },
+  ['centos', 'redhat', 'fedora', 'amazon'] => {
+    'default' => ["tomcat#{node['tomcat']['base_version']}", 'tomcat-native', 'mysql-connector-java']
+  },
+  'default' => ["tomcat#{node['tomcat']['base_version']}"]
+)
 
-# Uninstall Tomcat
+tomcat_old_version = "tomcat#{node['tomcat']['old_version']}"
+
+tomcat_pkgs.each do |pkg|
+  package pkg do
+    action :remove
+  end
+end
+
 script "uninstall_tomcat" do
   interpreter "bash"
   user "root"
   code <<-EOH
-    tomcatv=`ps -eLf|grep tomcat | cut -d ' ' -f 1 | head -1`
-    if [[ $tomcatv == tomcat* ]];
+    tomcat_v = grep ""
+    sudo rm -rf /usr/share/#{tomcat_old_version}
+    if [ -d "/var/lib/#{tomcat_old_version}" ]
     then
-      sudo apt-get --force-yes purge $tomcatv
-      sudo apt-get --force-yes autoremove
-      sudo rm -r /usr/share/$tomcatv
+      sudo rm -rf /var/lib/#{tomcat_old_version}
     fi
   EOH
 end
