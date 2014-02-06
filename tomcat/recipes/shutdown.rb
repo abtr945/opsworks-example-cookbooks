@@ -9,6 +9,7 @@ tomcat_pkgs = value_for_platform(
 )
 
 tomcat_old_version = "tomcat#{node['tomcat']['old_version']}"
+tomcat_current_version = "tomcat#{node['tomcat']['base_version']}"
 
 tomcat_pkgs.each do |pkg|
   package pkg do
@@ -20,11 +21,21 @@ script "uninstall_tomcat" do
   interpreter "bash"
   user "root"
   code <<-EOH
-    tomcat_v = grep ""
-    sudo rm -rf /usr/share/#{tomcat_old_version}
+    if [ -d "/usr/share/#{tomcat_old_version}" ]
+    then
+      sudo rm -rf /usr/share/#{tomcat_old_version}
+    fi
+    if [ -d "/usr/share/#{tomcat_current_version}" ]
+    then
+      sudo rm -rf /usr/share/#{tomcat_current_version}
+    fi
     if [ -d "/var/lib/#{tomcat_old_version}" ]
     then
       sudo rm -rf /var/lib/#{tomcat_old_version}
+    fi
+    if [ -d "/var/lib/#{tomcat_current_version}" ]
+    then
+      sudo rm -rf /var/lib/#{tomcat_current_version}
     fi
   EOH
 end
