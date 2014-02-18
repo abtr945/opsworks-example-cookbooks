@@ -1,10 +1,9 @@
 ruby_block "find-tomcat-old-version" do
   block do
-    node['current_server'] = `ps -eLf|grep tomcat | cut -d ' ' -f 1 | head -1`
-    if node['current_server'].start_with? 'tomcat'
-      regex = /^tomcat(?<old_version>\d+)$/
-      parts = node['current_server'].match(regex)
-      node['tomcat']['old_version'] = parts['old_version']
+    current_server = `ps -eLf|grep tomcat | cut -d ' ' -f 1 | head -1`
+    if current_server.start_with? 'tomcat'
+      parts = current_server.match(/^tomcat([0-9])$/)
+      node['tomcat']['old_version'] = parts.captures.join("")
       puts "===================================#{node['tomcat']['old_version']}=============="
     end
   end
