@@ -3,15 +3,17 @@ ruby_block "find-tomcat-old-version" do
     current_server = `ps -eLf|grep -Eo '^[^ ]+'| grep tomcat`
     if parts = current_server.match(/tomcat([0-9])/)
       ver = parts.captures.join("")
-      node.override['tomcat']['old_server'] = ver
-      puts "************************#{node['tomcat']['old_server']}****************"
-      
+      node['tomcat_old_server'] = ver
+      puts "************************#{node['tomcat_old_server']}****************"
+    else
+      node['tomcat_old_server'] = node['tomcat']['old_version']
+      puts "^^^^^^^^^^^^^^^^^In else statement, #{node['tomcat']['old_version']}^^^^^^^^^^^^^^"
     end
   end
   action :create
 end
 
-log "===============#{node.override['tomcat']['old_server']}=============================" do
+log "===============#{node['tomcat_old_server']}=============================" do
   level :info
 end
 
