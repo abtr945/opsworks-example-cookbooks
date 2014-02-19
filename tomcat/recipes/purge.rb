@@ -13,7 +13,7 @@ ruby_block "find-tomcat-old-version" do
   action :create
 end
 
-log "===============#{node.default['tomcat_old_server']}=============================" do
+log "===============#{node['tomcat_old_server']}=============================" do
   level :info
 end
 
