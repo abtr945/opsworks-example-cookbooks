@@ -4,7 +4,8 @@ ruby_block "find-tomcat-old-version" do
     if parts = current_server.match(/tomcat([0-9])/)
       ver = parts.captures.join("")
       puts "previous---************************#{node['tomcat']['old_version']}****************"
-      node.default['tomcat']['old_version'] = ver
+      set['tomcat']['old_version'] = ver
+      normal['tomcat']['old_version'] = ver
       puts "after---************************#{node['tomcat']['old_version']}****************"
     else
       node.default['tomcat']['old_version'] = node['tomcat']['base_version']
@@ -14,7 +15,7 @@ ruby_block "find-tomcat-old-version" do
   action :create
 end
 
-log "===============#{node.default['tomcat']['old_version']}=============================" do
+log "===============#{normal['tomcat']['old_version']}=============================" do
   level :info
 end
 
