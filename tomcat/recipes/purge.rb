@@ -3,17 +3,17 @@ ruby_block "find-tomcat-old-version" do
     current_server = `ps -eLf|grep -Eo '^[^ ]+'| grep tomcat`
     if parts = current_server.match(/tomcat([0-9])/)
       ver = parts.captures.join("")
-      node.default['tomcat']['old_server'] = ver
-      puts "************************#{node.default['tomcat']['old_server']}****************"
+      node.default['tomcat']['old_version'] = ver
+      puts "************************#{node.default['tomcat']['old_version']}****************"
     else
-      node.default['tomcat']['old_server'] = node['tomcat']['base_version']
+      node.default['tomcat']['old_version'] = node['tomcat']['base_version']
       puts "^^^^^^^^^^^^^^^^^In else statement, #{node['tomcat']['old_version']}^^^^^^^^^^^^^^"
     end
   end
   action :create
 end
 
-log "===============#{node['tomcat']['old_version']}=============================" do
+log "===============#{node.default['tomcat']['old_version']}=============================" do
   level :info
 end
 
