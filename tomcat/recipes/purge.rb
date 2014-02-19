@@ -15,7 +15,7 @@ end
 
 ruby_block "print-tomcat-old-server" do
   block do
-    puts "************************#{node['tomcat_old_server']****************"
+    puts "************************#{node['tomcat_old_server']}****************"
     tomcat_pkgs = value_for_platform(
     ['debian', 'ubuntu'] => {
      'default' => ["tomcat#{node['tomcat_old_server']}", 'libtcnative-1', 'libmysql-java']
