@@ -13,9 +13,16 @@ ruby_block "find-tomcat-old-version" do
   action :create
 end
 
-log "===============#{node['tomcat_old_server']}=============================" do
-  level :info
+ruby_block "print-tomcat-old-server" do
+  block do
+    puts "The last line is #{node['tomcat_old_server']}"
+  end
+  action :create
 end
+
+#log "===============#{node['tomcat_old_server']}=============================" do
+#  level :info
+#end
 
 tomcat_pkgs = value_for_platform(
   ['debian', 'ubuntu'] => {
