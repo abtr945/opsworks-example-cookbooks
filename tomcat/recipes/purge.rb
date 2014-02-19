@@ -56,7 +56,6 @@ ruby_block "print-tomcat-old-server" do
     end
     
   end
-  action :nothing
 end
 
 #log "===============#{node['tomcat_old_server']}=============================" do
