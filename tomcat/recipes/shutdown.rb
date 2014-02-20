@@ -23,14 +23,12 @@ tomcat_current_version = "tomcat#{node['tomcat']['base_version']}"
 tomcat_pkgs.each do |pkg|
   package pkg do
     action :purge
-    ignore_failure true
   end
 end
 
 tomcat_current_pkgs.each do |pkg|
   package pkg do
     action :purge
-    ignore_failure true
   end
 end
 
