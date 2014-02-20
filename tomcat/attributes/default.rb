@@ -12,7 +12,7 @@
 # and limitations under the License.
 
 default['tomcat']['base_version'] = 7
-override['tomcat']['old_version'] = 7
+override['tomcat']['old_version'] = 6
 default['tomcat']['port'] = 8080
 default['tomcat']['secure_port'] = 8443
 default['tomcat']['ajp_port'] = 8009
