@@ -8,6 +8,11 @@ tomcat_pkgs = value_for_platform(
   'default' => ["tomcat#{node['tomcat']['old_version']}"]
 )
 
+service 'tomcat' do
+  service_name "tomcat#{node['tomcat']['old_version']}"
+  action :stop
+end
+
 tomcat_pkgs.each do |pkg|
   package pkg do
     action :remove
