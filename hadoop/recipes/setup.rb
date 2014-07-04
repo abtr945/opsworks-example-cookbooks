@@ -17,7 +17,6 @@ end
 # Restart SSH service
 service "ssh" do
   supports :restart => true
-  action :enable
   subscribes :restart, "template[/etc/ssh/sshd_config]", :immediately
 end
 
