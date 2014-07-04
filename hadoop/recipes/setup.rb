@@ -40,13 +40,17 @@ script "add_oracle_java_repository" do
   sudo apt-get install python-software-properties
   sudo add-apt-repository ppa:webupd8team/java
   sudo apt-get update
-  echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
-  echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
   EOH
 end
 
-package "oracle-java7-installer" do
-  action :install
+script "install_oracle_java" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+  echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
+  sudo apt-get -y install oracle-java7-installer 
+  EOH
 end
 
 log "complete_2" do
