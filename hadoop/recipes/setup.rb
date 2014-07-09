@@ -190,15 +190,6 @@ log "start_8" do
   level :info
 end
 
-# Get number of slave nodes
-dfsReplication = 0
-
-node[:opsworks][:layers][:hadoop][:instances].each do |instance_name, instance|
-  if (instance_name =~ /slave*/) != nil
-    dfsReplication = dfsReplication + 1
-  end
-end
-
 template "/usr/local/hadoop/etc/hadoop/core-site.xml" do
   owner "hduser"
   group "hadoop"
@@ -214,7 +205,7 @@ if node[:opsworks][:instance][:hostname] == "master"
     mode "0644"
     source "master.hdfs-site.xml.erb"
     variables({
-      :dfsReplication => dfsReplication
+      :dfsReplication => "3"
     })
   end
   
@@ -226,7 +217,7 @@ else
     mode "0644"
     source "slave.hdfs-site.xml.erb"
     variables({
-      :dfsReplication => dfsReplication
+      :dfsReplication => "3"
     })
   end
 
