@@ -34,25 +34,7 @@ log "start_2" do
   level :info
 end
 
-script "add_oracle_java_repository" do
-  interpreter "bash"
-  user "root"
-  code <<-EOH
-  sudo apt-get install python-software-properties
-  sudo add-apt-repository ppa:webupd8team/java
-  sudo apt-get update
-  EOH
-end
-
-script "install_oracle_java" do
-  interpreter "bash"
-  user "root"
-  code <<-EOH
-  echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
-  echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
-  sudo apt-get -y install oracle-java7-installer 
-  EOH
-end
+include_recipe "java"
 
 log "complete_2" do
   message "<AN_TRAN> STEP 2: Install Oracle Java completed"
