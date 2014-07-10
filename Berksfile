@@ -10,7 +10,7 @@
 # This declares the default location to search for cookbooks. The key :opscode
 # tells Berkshelf to search community.opscode.com for cookbooks. For a list of
 # other valid keys, see the Berkshelf documentation
-site :opscode
+source "http://api.berkshelf.com"
 
 # This will download the latest version of the Java cookbook from the
 # community site.
